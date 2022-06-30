@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="login">
+	<insert id="join" parameterType="loginDTO">
+		INSERT INTO jun_user (u_id, u_pw, u_name, u_email) VALUES (#{u_id}, #{u_pw}, #{u_name}, #{u_email})
+	</insert>
+	<select id="login" resultType="integer" parameterType="loginDTO">
+		SELECT COUNT(*) FROM jun_user WHERE u_id=#{u_id} AND u_pw=HEX(AES_ENCRYPT(#{u_pw}, SHA2('woori',256)))
+	</select>
+</mapper>
